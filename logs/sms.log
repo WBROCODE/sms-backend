@@ -1,0 +1,42 @@
+2026-11-23T00:09:21.505-08:00  INFO 87109 --- [sms-backend] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-23T00:09:23.521-08:00  INFO 87109 --- [sms-backend] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-11-23T00:09:23.530-08:00  INFO 87109 --- [sms-backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-11-23T00:09:23.534-08:00  INFO 87109 --- [sms-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-11-23T00:09:23.536-08:00  INFO 87109 --- [sms-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-11-23T00:09:25.611-08:00  INFO 87546 --- [sms-backend] [main] n.javaguides.sms.SmsBackendApplication   : Starting SmsBackendApplication using Java 25.0.2 with PID 87546 (/Users/aigezi/Desktop/sms-backend/target/classes started by aigezi in /Users/aigezi/Desktop/sms-backend)
+2026-11-23T00:09:25.612-08:00  INFO 87546 --- [sms-backend] [main] n.javaguides.sms.SmsBackendApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-11-23T00:09:25.838-08:00  INFO 87546 --- [sms-backend] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-23T00:09:25.850-08:00  INFO 87546 --- [sms-backend] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 1 JPA repository interface.
+2026-11-23T00:09:26.040-08:00  INFO 87546 --- [sms-backend] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-11-23T00:09:26.047-08:00  INFO 87546 --- [sms-backend] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-23T00:09:26.047-08:00  INFO 87546 --- [sms-backend] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.27]
+2026-11-23T00:09:26.061-08:00  INFO 87546 --- [sms-backend] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 432 ms
+2026-11-23T00:09:26.141-08:00  INFO 87546 --- [sms-backend] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-11-23T00:09:26.153-08:00  INFO 87546 --- [sms-backend] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.13.Final
+2026-11-23T00:09:26.247-08:00  INFO 87546 --- [sms-backend] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-23T00:09:26.255-08:00  INFO 87546 --- [sms-backend] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-23T00:09:26.280-08:00  INFO 87546 --- [sms-backend] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5807ea46
+2026-11-23T00:09:26.281-08:00  INFO 87546 --- [sms-backend] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-23T00:09:26.301-08:00  INFO 87546 --- [sms-backend] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/sms]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.12
+	Default catalog/schema: sms/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-23T00:09:26.523-08:00  INFO 87546 --- [sms-backend] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-23T00:09:26.545-08:00  INFO 87546 --- [sms-backend] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-23T00:09:26.578-08:00  INFO 87546 --- [sms-backend] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-23T00:09:26.628-08:00  WARN 87546 --- [sms-backend] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-23T00:09:26.814-08:00  INFO 87546 --- [sms-backend] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoints beneath base path '/actuator'
+2026-11-23T00:09:26.839-08:00  INFO 87546 --- [sms-backend] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-11-23T00:09:26.842-08:00  INFO 87546 --- [sms-backend] [main] n.javaguides.sms.SmsBackendApplication   : Started SmsBackendApplication in 1.348 seconds (process running for 1.526)
+2026-11-23T00:09:26.894-08:00  INFO 87546 --- [sms-backend] [RMI TCP Connection(2)-192.168.12.248] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-23T00:09:26.894-08:00  INFO 87546 --- [sms-backend] [RMI TCP Connection(2)-192.168.12.248] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-23T00:09:26.895-08:00  INFO 87546 --- [sms-backend] [RMI TCP Connection(2)-192.168.12.248] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-11-23T00:09:29.366-08:00 DEBUG 87546 --- [sms-backend] [http-nio-8080-exec-1] org.hibernate.SQL                        : select s1_0.id,s1_0.email_id,s1_0.first_name,s1_0.last_name from students s1_0 where s1_0.id=?

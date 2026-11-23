@@ -11,6 +11,9 @@ import net.javaguides.sms.repository.StudentRepository;
 import net.javaguides.sms.service.StudentNotificationService;
 import net.javaguides.sms.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -69,6 +72,7 @@ public class StudentServiceImpl implements StudentService {
 
     @LogMe
     @Override
+    @Cacheable(value = "students", key = "#studentId")
     public StudentDto getStudentById(Long studentId) {
         // if id not found, throw exception
         Student student = studentRepository.findById(studentId)
@@ -87,6 +91,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @CachePut(value = "students", key = "#studentId")
     public StudentDto updateStudent(Long studentId, StudentDto updatedStudent) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() ->
@@ -99,6 +104,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @CacheEvict(value = "students", key = "#studentId")
     public void deleteStudent(Long studentId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() ->
