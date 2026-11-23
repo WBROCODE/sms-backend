@@ -1,16 +1,20 @@
 package net.javaguides.sms.service.impl;
 
 import lombok.AllArgsConstructor;
+import net.javaguides.sms.aspect.LogMe;
 import net.javaguides.sms.dto.StudentDto;
 import net.javaguides.sms.entity.Student;
 import net.javaguides.sms.exception.ResourceNotFoundException;
 import net.javaguides.sms.mapper.StudentMapper;
 import net.javaguides.sms.repository.StudentRepository;
 import net.javaguides.sms.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Sort;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +23,20 @@ public class StudentServiceImpl implements StudentService {
     // constructor injection, Lombok makes it
     private StudentRepository studentRepository;
 
+//    public StudentServiceImpl(StudentRepository studentRepository){
+//        this.studentRepository = studentRepository;
+//    }
+
+    // setter DI
+    @Autowired
+    public void setStudentRepository(StudentRepository studentRepository){
+        this.studentRepository = studentRepository;
+    }
+
+//    // filed DI
+//    @Autowired
+//    private StudentRepository studentRepository;
+
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
         Student student = StudentMapper.mapToStudent(studentDto);
@@ -26,6 +44,7 @@ public class StudentServiceImpl implements StudentService {
         return StudentMapper.mapToStudentDto(savedStudent);
     }
 
+    @LogMe
     @Override
     public StudentDto getStudentById(Long studentId) {
         // if id not found, throw exception
@@ -35,10 +54,11 @@ public class StudentServiceImpl implements StudentService {
         return StudentMapper.mapToStudentDto(student);
     }
 
+
+
     @Override
-    public List<StudentDto> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
-        // change each Student to StudentDto
+    public List<StudentDto> getAllStudents(String sortBy) {
+        List<Student> students = studentRepository.findAll(Sort.by(sortBy));
         return students.stream().map((student) -> StudentMapper.mapToStudentDto(student))
                 .collect(Collectors.toList());
     }
@@ -61,5 +81,17 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Student is not exists with given id : " + studentId));
         studentRepository.deleteById(studentId);
+    }
+
+
+
+    @PostConstruct
+    public void init() {
+        System.out.println(">>> StudentServiceImpl ready. Repository = " + studentRepository);
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println(">>> StudentServiceImpl is being destroyed");
     }
 }

@@ -10,7 +10,7 @@ public interface StudentService {
 
     StudentDto getStudentById(Long studentId);
 
-    List<StudentDto> getAllStudents();
+    List<StudentDto> getAllStudents(String sortBy);
 
     StudentDto updateStudent(Long studentId, StudentDto updatedStudent);
 
