@@ -25,6 +25,12 @@ public class StudentController {
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
+    // POST /api/students/batch: create many students in one request
+    @PostMapping("/batch")
+    public ResponseEntity<List<StudentDto>> createStudents(@RequestBody List<StudentDto> studentDtos) {
+        return new ResponseEntity<>(studentService.createStudents(studentDtos), HttpStatus.CREATED);
+    }
+
     // Build Get Student REST API
     // "id" must match {id} in the URL
     @GetMapping("{id}")

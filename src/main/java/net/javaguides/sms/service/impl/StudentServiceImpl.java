@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -36,12 +39,22 @@ public class StudentServiceImpl implements StudentService {
 //    // filed DI
 //    @Autowired
 //    private StudentRepository studentRepository;
-
+    // treat it as a transction
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
         Student student = StudentMapper.mapToStudent(studentDto);
         Student savedStudent = studentRepository.save(student);
         return StudentMapper.mapToStudentDto(savedStudent);
+    }
+    @Transactional
+    @Override
+    public List<StudentDto> createStudents(List<StudentDto> studentDtos) {
+        List<StudentDto> saved = new ArrayList<>();
+        for (StudentDto dto : studentDtos) {
+            Student student = studentRepository.save(StudentMapper.mapToStudent(dto));
+            saved.add(StudentMapper.mapToStudentDto(student));
+        }
+        return saved;
     }
 
     @LogMe

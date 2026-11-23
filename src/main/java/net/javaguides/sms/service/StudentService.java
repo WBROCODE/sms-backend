@@ -8,6 +8,8 @@ public interface StudentService {
 
     StudentDto createStudent(StudentDto studentDto);
 
+    List<StudentDto> createStudents(List<StudentDto> studentDtos);
+
     StudentDto getStudentById(Long studentId);
 
     List<StudentDto> getAllStudents(String sortBy);

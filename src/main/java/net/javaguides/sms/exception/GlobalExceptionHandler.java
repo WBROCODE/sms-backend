@@ -4,11 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.core.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice                       // global: applies to ALL controllers
 public class GlobalExceptionHandler {
@@ -51,4 +53,19 @@ public class GlobalExceptionHandler {
                 "Something went wrong", request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // @Valid failed → the client sent bad data → 400
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex,
+                                                     HttpServletRequest request) {
+        // collect every failed field into one message, e.g. "firstName: First name is required, ..."
+        String message = ex.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+
+        ApiError error = new ApiError(Instant.now(), HttpStatus.BAD_REQUEST.value(),
+                message, request.getRequestURI());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }
