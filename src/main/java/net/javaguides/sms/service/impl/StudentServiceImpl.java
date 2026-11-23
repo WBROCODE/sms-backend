@@ -1,12 +1,14 @@
 package net.javaguides.sms.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.javaguides.sms.aspect.LogMe;
 import net.javaguides.sms.dto.StudentDto;
 import net.javaguides.sms.entity.Student;
 import net.javaguides.sms.exception.ResourceNotFoundException;
 import net.javaguides.sms.mapper.StudentMapper;
 import net.javaguides.sms.repository.StudentRepository;
+import net.javaguides.sms.service.StudentNotificationService;
 import net.javaguides.sms.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,14 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
     // constructor injection, Lombok makes it
     private StudentRepository studentRepository;
+    private StudentNotificationService notificationService;
 
 //    public StudentServiceImpl(StudentRepository studentRepository){
 //        this.studentRepository = studentRepository;
@@ -44,6 +48,12 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto createStudent(StudentDto studentDto) {
         Student student = StudentMapper.mapToStudent(studentDto);
         Student savedStudent = studentRepository.save(student);
+
+        log.info("Student {} saved, calling the email service", savedStudent.getId());
+        notificationService.sendWelcomeEmail(savedStudent.getEmail());   // runs in the background
+        log.info("Returning the response now");
+
+
         return StudentMapper.mapToStudentDto(savedStudent);
     }
     @Transactional
