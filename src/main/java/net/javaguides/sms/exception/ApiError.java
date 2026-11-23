@@ -15,3 +15,4 @@ public class ApiError {
     private String message;      // what went wrong
     private String path;         // which URL
 }
+
